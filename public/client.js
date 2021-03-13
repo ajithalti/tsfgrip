@@ -7,7 +7,6 @@ window.onload=function()
 let hm=0;
 function hmenu()
 {
-    alert("hello");
     if(hm%2==0)
     {
         document.getElementById("hc").style.display="block";
