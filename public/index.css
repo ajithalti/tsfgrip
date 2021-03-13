@@ -1,0 +1,22 @@
+body {
+    
+}
+#header
+{
+    background-color:pink;
+    color:purple;
+    text-align:center;
+}
+#hc
+{
+    display:none;
+}
+#hmenu
+{
+    background-color:pink;
+    border:0px;
+    color:purple;
+    text-align:left;
+    position:absolute;
+    left:10px;
+}
