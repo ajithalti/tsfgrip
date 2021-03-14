@@ -24,13 +24,11 @@ function theme()
 }
 function customers()
 {
-	alert("hello");
    let xhr=new XMLHttpRequest();
 	xhr.onreadystatechange=function()
 	{
 		if(this.status==200&&this.readyState==4)
 		{
-			alert("res");
 			if(this.responseText)
 			{
 
@@ -53,6 +51,11 @@ function viewc(ip)
 	dlt();
 	let j=0;
 	let content=document.getElementById("content");
+	let h=document.createElement("h3");
+	h.innerHTML="Customers";
+	h.style.textAlign="center";
+	h.style.color="purple";
+	content.appendChild(h);
 
 	for(i in ip)
 	{
@@ -61,14 +64,14 @@ function viewc(ip)
 		c.id=j.toString();
 		c.style.border="1px solid green";
 		c.style.backgroundColor="yellow";
-		let name=document.createElement("h3");
+		let name=document.createElement("h4");
 		name.innerHTML="NAME: "+(ip[i].name);
 		
-		let bal=document.createElement("h4");
+		let bal=document.createElement("h5");
 		bal.innerHTML="BALANCE: "+ip[i].bal;
-		let mail=document.createElement("h4");
+		let mail=document.createElement("h5");
 		mail.innerHTML="MAIL: "+ip[i].mail;
-		let no=document.createElement("h4");
+		let no=document.createElement("h5");
 		no.innerHTML="ACC NO: "+ip[i].no;
 		
 		content.appendChild(document.createElement("br"));
@@ -88,10 +91,10 @@ function viewc(ip)
 
 function dlt()
 {
-/*	while(document.getElementById("content").hasChild)
+        while(document.getElementById("content").hasChildNodes())
 	{
-		document.getElementById('content').firstChild.remove();
-	}*/
+		document.getElementById("content").removeChild(document.getElementById('content').firstChild);
+	}
 }
 
 
