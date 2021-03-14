@@ -29,7 +29,6 @@ app.get('/test',(req,res)=>{
 	res.send("Hello");
 });
 app.get('/viewc',(req,res)=>{
-	console.log('ffg');
          MongoClient.connect(url, function(err, db) {
           if (err) throw err;
           let dbo=db.db("WT");
