@@ -20,3 +20,9 @@ body {
     position:absolute;
     left:10px;
 }
+#lbut
+{
+	background-color:yellow;
+	color:purple;
+	border:0px;
+}

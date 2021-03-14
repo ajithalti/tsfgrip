@@ -34,7 +34,7 @@ app.get('/viewc',(req,res)=>{
           if (err) throw err;
           let dbo=db.db("WT");
 
-          dbo.collection("bankc").find({}).toArray((err,result)=>               {                                                            console.log(result);
+          dbo.collection("bankc").find({}).toArray((err,result)=>               {                                                           // console.log(result);
                             res.send(JSON.stringify(result));
 	});                                                     });
 });
