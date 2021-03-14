@@ -86,9 +86,10 @@ function viewc(ip)
 	
 		let c=document.createElement("div");
 		c.id=j.toString();
+		let temp=ip
 		c.onclick=function()
 		{
-			viewone(ip);
+			viewone(temp);
 		}
 		c.style.border="1px solid green";
 		c.style.backgroundColor="yellow";
