@@ -218,6 +218,8 @@ function tamt(ip,from)
 			
 					 else
 					 {
+						 document.getElementById('sbut').disabled='true';
+						 document.getElementById('abut').disabled='true';
 						 customers("send",from,amt.value,ip[temp]);
 						 loader();
 						 return;
@@ -400,8 +402,4 @@ function dlt()
 		document.getElementById("content").removeChild(document.getElementById('content').firstChild);
 	}
 }
-
-
-
-
 
