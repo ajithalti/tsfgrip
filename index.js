@@ -21,7 +21,7 @@ MongoClient.connect(url, function(err, db)
 	if (err)
 		throw err;
 	let dbo=db.db("WT");
-/*	dbo.collection("bankc").drop();
+	dbo.collection("bankc").drop();
  	dbo.collection('bankt').drop();
 	dbo.collection("bankc").insert([{"name":"AJITH KUMAR","bal":10000,"no":"XXXX2579","mail":"ajith@gmail.com"},{"name":"PREM KUMAR","bal":25000,"no":"XXXX4592","mail":"prem@gmail.com"},{"name":"SANJAY","bal":10000,"no":"XXXX3789","mail":"sanjay@gmail.com"},{"name":"SIVASUNDHAR","bal":20000,"no":"XXXX2894","mail":"sivasundhar@gmail.com"},{"name":"DEENA","bal":24000,"no":"XXXX9876","mail":"deena@gmail.com"},{"name":"SASI","bal":18900,"no":"XXXX6734","mail":"sasi@gmail.com"},{"name":"GUNA","bal":50000,"no":"XXXX2435","mail":"guna@gmail.com"},{"name":"RAM","bal":60000,"no":"XXXX6712","mail":"ram@gmail.com"},{"name":"SHEELA","bal":10000,"no":"XXXX5673","mail":"sheela@gmail.com"},{"name":"SHOBHANA","bal":200000,"no":"XXXX4572","mail":"shobhana@gmail.com"}],(err,result)=>            
 	{                                                 
@@ -30,7 +30,7 @@ MongoClient.connect(url, function(err, db)
 	dbo.collection("bankt").insert([{"mail":"ajith@gmail.com","t":[]},{"mail":"prem@gmail.com","t":[]},{"mail":"sanjay@gmail.com","t":[]},{"mail":"sheela@gmail.com","t":[]},{"mail":"shobhana@gmail.com","t":[]},{"mail":"sivasundhar@gmail.com","t":[]},{"mail":"deena@gmail.com","t":[]},{"mail":"sasi@gmail.com","t":[]},{"mail":"guna@gmail.com","t":[]},{"mail":"ram@gmail.com","t":[]}],(err,result)=>      
 		{                                         
 			console.log(result);              
-		});*/
+		});
 });
 app.get('/test',(req,res)=>{
 	res.send("Hello");
