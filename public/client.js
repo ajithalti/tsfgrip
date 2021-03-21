@@ -403,3 +403,8 @@ function dlt()
 	}
 }
 
+function about()
+{
+
+	alert("Designed and developed by AJITH KUMAR G");
+}
