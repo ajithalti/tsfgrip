@@ -24,7 +24,7 @@ function theme()
 {
     
 }
-function customers(ip,from,to,amt)
+function customers(ip,from,amt,to)
 {
    let xhr=new XMLHttpRequest();
 	xhr.onreadystatechange=function()
@@ -44,6 +44,28 @@ function customers(ip,from,to,amt)
 				}
 				else if(ip=="send")
 				{
+					alert(this.responseText);
+					alert("Amount sent");
+					return;
+
+				}
+				else if(ip=="viewone")
+				{
+					for(i in res)
+					{
+						if(res[i]['mail']==from['mail'])
+						{
+
+							viewone(res[i]);
+							return;
+						}
+					}
+				}
+
+				else if(ip=="viewt")
+				{
+					viewt(res,from);
+					return;
 				}
 			
 				viewc(res);
@@ -55,8 +77,14 @@ function customers(ip,from,to,amt)
 	{
 		xhr.open("POST","send",true);
 		xhr.setRequestHeader('Content-Type','application/json');
-                xhr.send(JSON.stringify({from:from,amt:amt,to:to}));
+                xhr.send(JSON.stringify({from:from,amt:parseInt(amt),to:to}));
 	
+	}
+	else if(ip=="viewt")
+	{
+		xhr.open("POST","viewt",true);
+		xhr.setRequestHeader('Content-Type','application/json');
+		xhr.send(JSON.stringify({from:from}));
 	}
 	else
 	{
@@ -67,8 +95,45 @@ function customers(ip,from,to,amt)
 
 
 }
+function viewt(ip,from)
+{
+	if(document.getElementById("pop"))                      {                                                                  document.getElementById("pop").remove();        }
+	let pop=document.createElement('div');
+	pop.id='pop';
+	pop.setAttribute("style","position:fixed;width:"+w-20+"px;background-color:white;overflow-x:scroll;overflow-y:scroll;top:50px;border:2px solid lightgreen;");
+	let abut=document.createElement("button");                 abut.id="abut";                                            abut.innerHTML="Close";                                    abut.onclick=function()
+        {                                                                  document.getElementById("pop").remove();           }
+	pop.appendChild(abut);
+	let center=document.createElement("center");               center.id="center";
+	let h=document.createElement('h4');
+	h.innerHTML='Transaction details for '+from.name+' ('+from.mail+')';
+	center.appendChild(h);
+	let t=ip.t;
+	let key=['p','mail','amt','type','time'];
+	let table=document.createElement('table');
+	for(i in t)
+	{
+		let tr=document.createElement('tr');
+		for(j in key)
+		{
+			
+			let td=document.createElement('td');
+			td.innerHTML=t[i][key[j]];
+			tr.appendChild(td);
+
+
+		}
+		table.appendChild(tr);
+
+	}
+	center.appendChild(table);
+	pop.appendChild(center);
+	document.body.appendChild(pop);
+
+}
 function tamt(ip,from)
 {
+	if(document.getElementById("pop"))                      {                                                                  document.getElementById("pop").remove();        }
 	let pop=document.createElement("div");
 	pop.id="pop";
 	let h=document.createElement("h4");
@@ -133,21 +198,76 @@ function tamt(ip,from)
 			 {
 			 let sbut=document.createElement("button");
 
+
 			 sbut.id="sbut";
 			 sbut.setAttribute("style","background-coor:lightgreen;border:0px;color:purple;");
 			 sbut.innerHTML="SEND";
+				 document.getElementById('center').appendChild(sbut);
 
-			 sbut.onclick=function()
-			 {
-				 customers("send",from,amt.value,ip[temp]);
-				 return;
 
-			 }
-			 document.getElementById("center").appendChild(sbut);
-			 }
-			 return;
+				 sbut=document.getElementById('sbut');
+				 sbut.onclick=function()
+				 {
+				 	 if(amt.value<=0)
+					
+						 alert("Please enter a valid amount");
+				
+					 else if(amt.value>from.bal)
+				
+						 alert("Insufficient balance to make this transaction");
 			
-		 }            
+					 else
+					 {
+						 customers("send",from,amt.value,ip[temp]);
+						 loader();
+						 return;
+					 }
+				 }
+				 function loader()
+				 {
+					 let ci;
+					 let ldiv=document.createElement('div');
+					 for(ci=0;ci<4;ci++)
+					 {
+						 let b=document.createElement('div');
+
+						 b.id="b"+ci+"";
+						 b.style.backgroundColor="silver";
+						 b.style.display="inline-block";
+						 b.style.height="20px";
+						 b.style.width="20px";
+						 b.style.borderRadius="100%";
+
+
+						ldiv.appendChild(b);
+					 }
+					 document.getElementById("center").appendChild(ldiv);
+					 ci=0;
+					 let j=0;
+					 
+					 let t=setInterval(a,300);
+					 function a(){
+						document.getElementById('b'+ci).style.backgroundColor="silver";
+						
+						 ci++;
+						 if(ci>3)
+							 ci=0;
+						 document.getElementById('b'+ci).style.backgroundColor="white";
+						 
+						 j++;
+						 if(j>9)
+						 {	
+							 clearInterval(t);
+						
+							 customers("viewone",from);
+						 }
+					 }
+					
+				 }
+				 
+			 return;
+			 }
+		 }
 	        c.style.border="1px solid green";    
 		c.style.backgroundColor="gray";     
 		let name=document.createElement("p");  
@@ -202,11 +322,16 @@ function viewone(ip)
 	tabut.innerHTML="Transfer amount";
 	tabut.onclick=function()
 	{
-		customers("tamt",ip);
+		customers('tamt',ip);
 	}
 	let ttbut=document.createElement("button");
 	ttbut.id="lbut";
 	ttbut.innerHTML="View all transactions";
+	ttbut.onclick=function()
+	{
+		customers("viewt",ip);
+	}
+
 
 	content.appendChild(document.createElement("br"));                                                            //      c.appendChild(document.createElement("br"));      
 	c.appendChild(name);                               //      c.appendChild(document.createElement("br"));     
@@ -269,6 +394,7 @@ function viewc(ip)
 
 function dlt()
 {
+	if(document.getElementById("pop"))                      {                                                                  document.getElementById("pop").remove();        }
         while(document.getElementById("content").hasChildNodes())
 	{
 		document.getElementById("content").removeChild(document.getElementById('content').firstChild);
